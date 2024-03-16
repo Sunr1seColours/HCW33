@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HCW33", "HCW33\HCW33.csproj", "{1AF30D3C-BA1E-42BE-9C13-0BE5938BEFA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricChargesLib", "ElectricChargesLib\ElectricChargesLib.csproj", "{9BEF74FA-E6B0-472D-9385-C99AF1D6AE77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileOpsLib", "FileOpsLib\FileOpsLib.csproj", "{0F09853F-C09B-4BE5-BEC0-4D4CC401391C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1AF30D3C-BA1E-42BE-9C13-0BE5938BEFA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF30D3C-BA1E-42BE-9C13-0BE5938BEFA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AF30D3C-BA1E-42BE-9C13-0BE5938BEFA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AF30D3C-BA1E-42BE-9C13-0BE5938BEFA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BEF74FA-E6B0-472D-9385-C99AF1D6AE77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BEF74FA-E6B0-472D-9385-C99AF1D6AE77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BEF74FA-E6B0-472D-9385-C99AF1D6AE77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BEF74FA-E6B0-472D-9385-C99AF1D6AE77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F09853F-C09B-4BE5-BEC0-4D4CC401391C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F09853F-C09B-4BE5-BEC0-4D4CC401391C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F09853F-C09B-4BE5-BEC0-4D4CC401391C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F09853F-C09B-4BE5-BEC0-4D4CC401391C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
