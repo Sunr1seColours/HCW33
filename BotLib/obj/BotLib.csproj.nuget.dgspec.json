@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/zemld/RiderProjects/HCW33/HCW33/HCW33/HCW33.csproj": {}
+    "/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/BotLib.csproj": {}
   },
   "projects": {
-    "/Users/zemld/RiderProjects/HCW33/HCW33/HCW33/HCW33.csproj": {
+    "/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/BotLib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/zemld/RiderProjects/HCW33/HCW33/HCW33/HCW33.csproj",
-        "projectName": "HCW33",
-        "projectPath": "/Users/zemld/RiderProjects/HCW33/HCW33/HCW33/HCW33.csproj",
+        "projectUniqueName": "/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/BotLib.csproj",
+        "projectName": "BotLib",
+        "projectPath": "/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/BotLib.csproj",
         "packagesPath": "/Users/zemld/.nuget/packages/",
-        "outputPath": "/Users/zemld/RiderProjects/HCW33/HCW33/HCW33/obj/",
+        "outputPath": "/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/zemld/.nuget/NuGet/NuGet.Config"
@@ -37,6 +37,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Telegram.Bot": {
+              "target": "Package",
+              "version": "[19.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

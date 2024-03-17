@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("HCW33")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("BotLib")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("HCW33")]
-[assembly: System.Reflection.AssemblyTitleAttribute("HCW33")]
+[assembly: System.Reflection.AssemblyProductAttribute("BotLib")]
+[assembly: System.Reflection.AssemblyTitleAttribute("BotLib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Создано классом WriteCodeFragment MSBuild.

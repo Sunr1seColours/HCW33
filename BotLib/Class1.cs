@@ -1,4 +1,4 @@
-﻿namespace HCW33;
+﻿namespace BotLib;
 
 public class Class1
 {

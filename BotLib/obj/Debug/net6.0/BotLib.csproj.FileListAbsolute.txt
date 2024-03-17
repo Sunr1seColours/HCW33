@@ -1,0 +1,12 @@
+/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/bin/Debug/net6.0/BotLib.deps.json
+/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/bin/Debug/net6.0/BotLib.dll
+/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/bin/Debug/net6.0/BotLib.pdb
+/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/obj/Debug/net6.0/BotLib.csproj.AssemblyReference.cache
+/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/obj/Debug/net6.0/BotLib.GeneratedMSBuildEditorConfig.editorconfig
+/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/obj/Debug/net6.0/BotLib.AssemblyInfoInputs.cache
+/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/obj/Debug/net6.0/BotLib.AssemblyInfo.cs
+/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/obj/Debug/net6.0/BotLib.csproj.CoreCompileInputs.cache
+/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/obj/Debug/net6.0/BotLib.dll
+/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/obj/Debug/net6.0/refint/BotLib.dll
+/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/obj/Debug/net6.0/BotLib.pdb
+/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/obj/Debug/net6.0/ref/BotLib.dll
