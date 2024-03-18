@@ -5,6 +5,7 @@ using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Requests;
 using Telegram.Bot.Types.Enums;
+using File = Telegram.Bot.Types.File;
 
 namespace HCW33;
 
@@ -19,17 +20,64 @@ public class Bot
     private CancellationTokenSource _cts;
     
     public UpdateHandler Updater { get; init; }
-    public List<long> Chats { get; }
+    public Dictionary<long, UserInfo> Chats { get; }
 
     public CancellationToken Token => _cts.Token;
     
     public TelegramBotClient BotClient { get; }
 
+    private int _off = 0;
+
     public Bot()
     {
         BotClient = new TelegramBotClient("6996316735:AAG-YMGUcJ3rh2CIFZLgLUtMfqZeksDSBOo");
         _cts = new CancellationTokenSource();
-        Chats = new List<long>();
+        Chats = new Dictionary<long, UserInfo>();
         Updater = new UpdateHandler();
+    }
+    
+    /// <summary>
+    /// Gets new updates.
+    /// </summary>
+    /// <param name="botClient">Bot which gets updates.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>Array of new updates.</returns>
+    public async Task<Update[]> GetNewUpdatesAsync(CancellationToken cancellationToken)
+    {
+        Update[] allUpdates = await BotClient.GetUpdatesAsync(offset: _off, cancellationToken: cancellationToken);
+        List<Update> newUpdates = new List<Update>();
+        foreach (Update update in allUpdates)
+        {
+            if (update.Message == null)
+                continue;
+            
+            if (update.Message.Date > Updater.LastUpdateTime)
+            {
+                newUpdates.Add(update);
+                if (!Chats.Keys.Contains(update.Message.Chat.Id))
+                {
+                    Chats.Add(update.Message.Chat.Id, new UserInfo());
+                }
+            }
+        }
+
+        Updater.LastUpdateTime = allUpdates[^1].Message.Date;
+        _off = allUpdates[^1].Id;
+        return newUpdates.ToArray();
+    }
+
+    public async Task MakeAction(Update update, CancellationToken cancellationToken)
+    {
+        switch (Chats[update.Message.Chat.Id].State)
+        {
+            case UserInfo.UserStates.None:
+                await Updater.CommandHandlerAsync(BotClient, update, Chats[update.Message.Chat.Id], cancellationToken);
+                break;
+            case UserInfo.UserStates.InAction:
+                break;
+            case UserInfo.UserStates.UploadingFiles:
+                await Updater.FileHandlerAsync(BotClient, update, Chats[update.Message.Chat.Id], cancellationToken);
+                break;
+        }
     }
 }
