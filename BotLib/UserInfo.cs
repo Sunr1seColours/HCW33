@@ -2,20 +2,41 @@ namespace BotLib;
 
 public class UserInfo
 {
+    private int _typeOfAction;
+
     public enum UserStates
     {
         None,
-        InAction,
+        WaitingForCallback,
         UploadingFiles,
-        
+        ChoosingAttributeForSorting,
+        ChoosingAttributeForSelection,
+        EnteringValueForSelection
     }
-    
-    public UserStates State { get; set; }
-    public List<Stream> Files { get; set; }
 
+    public int TypeOfAction
+    {
+        get => _typeOfAction;
+        set
+        {
+            if (value <= 5 && value >= 0)
+            {
+                _typeOfAction = value;
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException($"{_typeOfAction} ", "Type of Action can be only in range [0; 5].");
+            }
+        }
+    }
+
+    public UserStates State { get; set; }
+    public Stream File { get; set; }
+    
+    public string ValueForSelection { get; set; }
+    
     public UserInfo()
     {
-        Files = new List<Stream>();
         State = UserStates.None;
     }
 }

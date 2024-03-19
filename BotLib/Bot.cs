@@ -48,10 +48,7 @@ public class Bot
         List<Update> newUpdates = new List<Update>();
         foreach (Update update in allUpdates)
         {
-            if (update.Message == null)
-                continue;
-            
-            if (update.Message.Date > Updater.LastUpdateTime)
+            if (update.Message != null && update.Message.Date > Updater.LastUpdateTime)
             {
                 newUpdates.Add(update);
                 if (!Chats.Keys.Contains(update.Message.Chat.Id))
@@ -59,25 +56,29 @@ public class Bot
                     Chats.Add(update.Message.Chat.Id, new UserInfo());
                 }
             }
+            else if (update.CallbackQuery != null)
+            {
+                if (Chats.Keys.Count != 0)
+                {
+                    newUpdates.Add(update);    
+                }
+            }
         }
 
-        Updater.LastUpdateTime = allUpdates[^1].Message.Date;
-        _off = allUpdates[^1].Id;
+        if (allUpdates.Length > 0)
+        {
+            if (allUpdates[^1].Message != null)
+            {
+                Updater.LastUpdateTime = allUpdates[^1].Message.Date;    
+            }
+            else
+            {
+                Updater.LastUpdateTime = DateTime.UtcNow;
+            }    
+            _off = allUpdates[^1].Id;
+        }
         return newUpdates.ToArray();
     }
 
-    public async Task MakeAction(Update update, CancellationToken cancellationToken)
-    {
-        switch (Chats[update.Message.Chat.Id].State)
-        {
-            case UserInfo.UserStates.None:
-                await Updater.CommandHandlerAsync(BotClient, update, Chats[update.Message.Chat.Id], cancellationToken);
-                break;
-            case UserInfo.UserStates.InAction:
-                break;
-            case UserInfo.UserStates.UploadingFiles:
-                await Updater.FileHandlerAsync(BotClient, update, Chats[update.Message.Chat.Id], cancellationToken);
-                break;
-        }
-    }
+    
 }
