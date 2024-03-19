@@ -8,7 +8,7 @@ public class UserInfo
     {
         None,
         WaitingForCallback,
-        UploadingFiles,
+        UploadingFile,
         ChoosingAttributeForSorting,
         ChoosingAttributeForSelection,
         EnteringValueForSelection

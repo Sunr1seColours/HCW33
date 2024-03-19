@@ -54,13 +54,6 @@ public class UpdateHandler
     {
         await botClient.SendTextMessageAsync(chatId, "Загрузи файл", cancellationToken: cancellationToken);
     }
-
-    private async Task UploadChoiceAnswerAsync(ITelegramBotClient botClient, CallbackQuery callbackQuery,
-        CancellationToken cancellationToken)
-    {
-        await botClient.AnswerCallbackQueryAsync(callbackQuery.Id, "Загрузи файл", showAlert: true,
-            cancellationToken: cancellationToken);
-    }
     
     private async Task ActionChoiceAnswerAsync(ITelegramBotClient botClient, CallbackQuery callbackQuery, UserInfo user,
         CancellationToken cancellationToken)
@@ -68,15 +61,16 @@ public class UpdateHandler
         user.State = string.Equals(callbackQuery.Data, "Выборка") ?
             UserInfo.UserStates.ChoosingAttributeForSelection : UserInfo.UserStates.ChoosingAttributeForSorting;
         long chatId = callbackQuery.From.Id;
-        await botClient.AnswerCallbackQueryAsync(callbackQuery.Id, "Выбери поле выборки",
-            cancellationToken: cancellationToken);
-        
         if (user.State == UserInfo.UserStates.ChoosingAttributeForSelection)
         {
+            await botClient.AnswerCallbackQueryAsync(callbackQuery.Id, "Выбери поле выборки",
+                cancellationToken: cancellationToken);
             await AskSelectionParameterAsync(botClient, chatId, user, cancellationToken);
         }
         else
         {
+            await botClient.AnswerCallbackQueryAsync(callbackQuery.Id, "Выбери порядок сортировки",
+                cancellationToken: cancellationToken);
             await AskSortingParameterAsync(botClient, chatId, user, cancellationToken);
         }
 
@@ -143,11 +137,11 @@ public class UpdateHandler
                 {
                     InlineKeyboardButton.WithCallbackData(
                         "1",
-                        "Alphabetical"
+                        "в алфавитном порядке"
                     ),
                     InlineKeyboardButton.WithCallbackData(
                         "2",
-                        "Reversed" 
+                        "В обратном алфавитном порядке" 
                     ),
                 }
             });
@@ -190,7 +184,7 @@ public class UpdateHandler
                         break;
                     case "/make_action":
                         await MakeActionCommandHandlerAsync(botClient, chatId, cancellationToken);
-                        user.State = UserInfo.UserStates.UploadingFiles;
+                        user.State = UserInfo.UserStates.UploadingFile;
                         break;
                 }
             }
@@ -242,10 +236,6 @@ public class UpdateHandler
     {
         switch (callbackQuery.Data)
         {
-            case "Новый файл":
-                await UploadChoiceAnswerAsync(botClient, callbackQuery, cancellationToken);
-                user.State = UserInfo.UserStates.UploadingFiles;
-                break;
             case "Выборка":
             case "Сортировка":
                 await ActionChoiceAnswerAsync(botClient, callbackQuery, user, cancellationToken);
@@ -262,11 +252,11 @@ public class UpdateHandler
                 user.TypeOfAction = 3;
                 await SelectAttributeAnswerAsync(botClient, callbackQuery, user, cancellationToken);
                 break;
-            case "Alphabetical":
+            case "В алфавитном порядке":
                 user.TypeOfAction = 4;
                 await SortingAnswerAsync(botClient, callbackQuery, user, cancellationToken);
                 break;
-            case "Reversed":
+            case "В обратном алфавитном порядке":
                 user.TypeOfAction = 5;
                 await SortingAnswerAsync(botClient, callbackQuery, user, cancellationToken);
                 break;
