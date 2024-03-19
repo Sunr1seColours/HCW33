@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "egETwfd40dOUlIv7IOPxDc8rXzst51noHxuFucz1z3/wjJKdVyivwqqJL+QbjL3EoMh9V2X1i2xhyIAK1qG6Jg==",
+  "dgSpecHash": "kCvnOKfy9NM/a4WL1wIUtW2bIsoM0Fs1pEV7v4sEtUhPqxYm/969Y4Ozfon+CHZdXL3HbmvUkj6VxQZ4bE+1zg==",
   "success": true,
   "projectFilePath": "/Users/zemld/RiderProjects/HCW33/HCW33/ElectricChargesLib/ElectricChargesLib.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/zemld/.nuget/packages/csvhelper/31.0.2/csvhelper.31.0.2.nupkg.sha512",
+    "/Users/zemld/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
+    "/Users/zemld/.nuget/packages/telegram.bot/19.0.0/telegram.bot.19.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
