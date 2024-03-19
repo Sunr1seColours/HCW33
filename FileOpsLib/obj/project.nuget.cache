@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "XA/yy0Vqe09TW6tS9FngSumbaZtM3AAJ4rSbxUIMJCot/dn52CX10Q1iqe33geoF56nzX6+CypvXBqNYEm7Yyw==",
+  "dgSpecHash": "3wM55Dw1uKUOCHBrgDUhFki38MieXCNgkBTH/NokDqIrHyH1x905wKJDWF/ytHhWkacM705ewWK6eMiqmfdxVg==",
   "success": true,
   "projectFilePath": "/Users/zemld/RiderProjects/HCW33/HCW33/FileOpsLib/FileOpsLib.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/zemld/.nuget/packages/csvhelper/31.0.2/csvhelper.31.0.2.nupkg.sha512",
+    "/Users/zemld/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
+    "/Users/zemld/.nuget/packages/telegram.bot/19.0.0/telegram.bot.19.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
