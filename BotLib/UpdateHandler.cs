@@ -8,6 +8,9 @@ using File = Telegram.Bot.Types.File;
 
 namespace BotLib;
 
+/// <summary>
+/// Class which contains methods to communicate with user.
+/// </summary>
 public class UpdateHandler
 {
     /// <summary>
@@ -24,9 +27,9 @@ public class UpdateHandler
     /// <summary>
     /// Reacts on '/start' command.
     /// </summary>
-    /// <param name="botClient"></param>
-    /// <param name="chatId"></param>
-    /// <param name="cancellationToken"></param>
+    /// <param name="botClient">Client of bot.</param>
+    /// <param name="chatId">Chat ID where reaction is needed.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     private async Task StartCommandHandlerAsync(ITelegramBotClient botClient, ChatId chatId, CancellationToken cancellationToken)
     {
         await botClient.SendStickerAsync(chatId, new InputFileId("CAACAgIAAxkBAAELwgpl_AABdda70h1W5DsYME1JI_gPUToAAgEBAAJWnb0KIr6fDrjC5jQ0BA"),
@@ -39,9 +42,9 @@ public class UpdateHandler
     /// <summary>
     /// Reacts on '/help' command.
     /// </summary>
-    /// <param name="botClient"></param>
-    /// <param name="chatId"></param>
-    /// <param name="cancellationToken"></param>
+    /// <param name="botClient">Client of bot.</param>
+    /// <param name="chatId">Chat ID where reaction is needed.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     private async Task HelpCommandHandlerAsync(ITelegramBotClient botClient, ChatId chatId, CancellationToken cancellationToken)
     {
         await botClient.SendTextMessageAsync(chatId, "Напиши /make_action для начала работы с ботом\n" +
@@ -52,15 +55,21 @@ public class UpdateHandler
     /// <summary>
     /// Reacts on '/make_action' command.
     /// </summary>
-    /// <param name="botClient"></param>
-    /// <param name="chatId"></param>
-    /// <param name="cancellationToken"></param>
+    /// <param name="botClient">Client of bot.</param>
+    /// <param name="chatId">Chat ID where reaction is needed.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     private async Task MakeActionCommandHandlerAsync(ITelegramBotClient botClient, ChatId chatId,
         CancellationToken cancellationToken)
     {
         await botClient.SendTextMessageAsync(chatId, "Загрузи файл", cancellationToken: cancellationToken);
     }
 
+    /// <summary>
+    /// Reacts on "/restart" command.
+    /// </summary>
+    /// <param name="botClient">Client of bot.</param>
+    /// <param name="chatId">Chat ID where reaction is needed.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     private async Task RestartCommandHandlerAsync(ITelegramBotClient botClient, ChatId chatId,
         CancellationToken cancellationToken)
     {
@@ -69,6 +78,13 @@ public class UpdateHandler
             cancellationToken: cancellationToken);
     }
     
+    /// <summary>
+    /// Reacts on callback when user decide what action he want.
+    /// </summary>
+    /// <param name="botClient">Client of bot.</param>
+    /// <param name="callbackQuery">Information about callback.</param>
+    /// <param name="user">UserInfo object which represents user that needs answer for callback.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     private async Task ActionChoiceAnswerAsync(ITelegramBotClient botClient, CallbackQuery callbackQuery, UserInfo user,
         CancellationToken cancellationToken)
     {
@@ -91,6 +107,13 @@ public class UpdateHandler
         user.State = UserInfo.UserStates.WaitingForCallback;
     }
 
+    /// <summary>
+    /// Reacts on callback when user chose parameter for selection. Also asks user for value of this parameter.
+    /// </summary>
+    /// <param name="botClient">Client of bot.</param>
+    /// <param name="callbackQuery">Information about callback.</param>
+    /// <param name="user">UserInfo object which represents user that needs answer for callback.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     private async Task SelectAttributeAnswerAsync(ITelegramBotClient botClient, CallbackQuery callbackQuery,
         UserInfo user, CancellationToken cancellationToken)
     {
@@ -102,6 +125,13 @@ public class UpdateHandler
         user.State = UserInfo.UserStates.EnteringValueForSelection;
     }
     
+    /// <summary>
+    /// Reacts on callback when user chose make selection by some parameters. Also asks user for value of them.
+    /// </summary>
+    /// <param name="botClient">Client of bot.</param>
+    /// <param name="callbackQuery">Information about callback.</param>
+    /// <param name="user">UserInfo object which represents user that needs answer for callback.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     private async Task SelectSomeAttributeAnswerAsync(ITelegramBotClient botClient, CallbackQuery callbackQuery,
         UserInfo user, CancellationToken cancellationToken)
     {
@@ -114,6 +144,12 @@ public class UpdateHandler
         user.State = UserInfo.UserStates.EnteringValueForSelection;
     }
 
+    /// <summary>
+    /// Tells user order of sorting when user chose it.
+    /// </summary>
+    /// <param name="botClient">Client of bot.</param>
+    /// <param name="callbackQuery">Information about callback.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     private async Task SortingAnswerAsync(ITelegramBotClient botClient, CallbackQuery callbackQuery,
         CancellationToken cancellationToken)
     {
@@ -122,6 +158,13 @@ public class UpdateHandler
             showAlert: true, cancellationToken: cancellationToken);
     }
     
+    /// <summary>
+    /// Asks user by what parameter selection is needed.
+    /// </summary>
+    /// <param name="botClient">Client of bot.</param>
+    /// <param name="chatId">Chat ID where question is needed.</param>
+    /// <param name="user">Information about user.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     private async Task AskSelectionParameterAsync(ITelegramBotClient botClient, ChatId chatId, UserInfo user,
         CancellationToken cancellationToken)
     {
@@ -152,6 +195,13 @@ public class UpdateHandler
         user.State = UserInfo.UserStates.WaitingForCallback;
     }
 
+    /// <summary>
+    /// Asks user in which order sorting is needed.
+    /// </summary>
+    /// <param name="botClient">Client of bot.</param>
+    /// <param name="chatId">Chat ID where question is needed.</param>
+    /// <param name="user">Information about user.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     private async Task AskSortingParameterAsync(ITelegramBotClient botClient, ChatId chatId, UserInfo user,
         CancellationToken cancellationToken)
     {
@@ -190,6 +240,13 @@ public class UpdateHandler
         LastUpdateTime = DateTime.UtcNow;
     }
 
+    /// <summary>
+    /// Reacts on message with command.
+    /// </summary>
+    /// <param name="botClient">Client of bot.</param>
+    /// <param name="update">Information about update.</param>
+    /// <param name="user">Information about user.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     public async Task CommandHandlerAsync(ITelegramBotClient botClient, Update update, UserInfo user, CancellationToken cancellationToken)
     {
         MessageEntity[] entities = update.Message.Entities;
@@ -220,6 +277,13 @@ public class UpdateHandler
         }
     }
 
+    /// <summary>
+    /// Reacts on message with file.
+    /// </summary>
+    /// <param name="botClient">Client of bot.</param>
+    /// <param name="update">Information about update.</param>
+    /// <param name="user">Information about user.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     public async Task UploadingFileHandlerAsync(ITelegramBotClient botClient, Update update, UserInfo user,
         CancellationToken cancellationToken)
     {
@@ -264,6 +328,13 @@ public class UpdateHandler
             "Расширение файла должно быть csv или json. Попробуй еще раз");
     }
     
+    /// <summary>
+    /// Reacts on tapping button in inline keyboard.
+    /// </summary>
+    /// <param name="botClient">Client of bot.</param>
+    /// <param name="callbackQuery">Information about update.</param>
+    /// <param name="user">UserInfo object which represents user that needs answer for callback.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     public async Task CallbackAnswerAsync(ITelegramBotClient botClient, CallbackQuery callbackQuery, UserInfo user,
         CancellationToken cancellationToken)
     {
@@ -296,6 +367,14 @@ public class UpdateHandler
         }
     }
 
+    /// <summary>
+    /// Sends file to user.
+    /// </summary>
+    /// <param name="botClient">Client of bot.</param>
+    /// <param name="chatId">Chat ID where to send file.</param>
+    /// <param name="fileToSend">File to send.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <param name="name">Name which file will has.</param>
     public async Task SendFileAsync(ITelegramBotClient botClient, ChatId chatId, Stream fileToSend,
         CancellationToken cancellationToken, string? name = null)
     {
