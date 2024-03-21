@@ -11,7 +11,7 @@ namespace FileOpsLib;
 /// <summary>
 /// Releases operations on csv files.
 /// </summary>
-public class CsvProcessing : IProccessing
+public class CsvProcessing : IProcessing
 {
     public ElectricCharger[] Read(Stream stream)
     {
@@ -60,8 +60,12 @@ public class CsvProcessing : IProccessing
         }
 
         csv.Remove(csv.Length - 1, 1);
-        using FileStream stream = new FileStream("../../../../outputFiles/output.csv", FileMode.Create);
-        File.WriteAllText("../../../../outputFiles/output.csv",csv.ToString());
-        return stream;
+        MemoryStream memoryStream = new MemoryStream();
+        using (StreamWriter writer = new StreamWriter(memoryStream, leaveOpen: true))
+        {
+            writer.Write(csv.ToString());    
+        }
+        memoryStream.Position = 0;
+        return memoryStream;
     }
 }

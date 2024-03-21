@@ -4,7 +4,7 @@ using ElectricChargesLib;
 
 namespace FileOpsLib;
 
-public class JsonProcessing : IProccessing
+public class JsonProcessing : IProcessing
 {
     public ElectricCharger[] Read(Stream stream)
     {
@@ -25,8 +25,12 @@ public class JsonProcessing : IProccessing
 
         json.Remove(json.Length - 2, 1);
         json.Append(']');
-        using FileStream stream = new FileStream("../../../../outputFiles/output.json", FileMode.Create);
-        File.WriteAllText("../../../../outputFiles/output.json",json.ToString());
-        return stream;
+        MemoryStream memoryStream = new MemoryStream();
+        using (StreamWriter writer = new StreamWriter(memoryStream, leaveOpen: true))
+        {
+            writer.Write(json);    
+        }
+        memoryStream.Position = 0;
+        return memoryStream;
     }
 }
