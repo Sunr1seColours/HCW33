@@ -1,7 +1,5 @@
 ﻿using System.Text;
-using System.Text.Json;
 using System.Text.Json.Serialization;
-using CsvHelper;
 using CsvHelper.Configuration.Attributes;
 
 namespace ElectricChargesLib;
@@ -89,6 +87,10 @@ public class ElectricCharger
     /// <exception cref="ArgumentException">On call.</exception>
     public ElectricCharger() { }
 
+    /// <summary>
+    /// Converts object's information into csv line.
+    /// </summary>
+    /// <returns>String which represents csv line of object.</returns>
     public string ToCsv()
     {
         StringBuilder sb = new StringBuilder();
@@ -97,6 +99,10 @@ public class ElectricCharger
         return sb.ToString();
     }
     
+    /// <summary>
+    /// Converts object's information into json format. 
+    /// </summary>
+    /// <returns>String which represents object as a json object.</returns>
     public string ToJson()
     {
         StringBuilder json = new StringBuilder();
