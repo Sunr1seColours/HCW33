@@ -2,9 +2,7 @@
 using ElectricChargesLib;
 using CsvHelper;
 using CsvHelper.Configuration;
-using Telegram.Bot.Types;
 using static System.Globalization.CultureInfo;
-using File = System.IO.File;
 
 namespace FileOpsLib;
 
@@ -43,7 +41,7 @@ public class CsvProcessing : IProcessing
             return chargers;
         }
 
-        throw new ArgumentException("Hollow file.");
+        throw new ArgumentException("Файл пуст.");
     }
 
     public Stream Write(ElectricCharger[] chargers)

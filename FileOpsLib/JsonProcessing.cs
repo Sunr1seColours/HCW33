@@ -10,7 +10,7 @@ public class JsonProcessing : IProcessing
     {
         if (stream is { Length: > 0 })
             return JsonSerializer.Deserialize<ElectricCharger[]>(stream);
-        throw new ArgumentException("Hollow file.");
+        throw new ArgumentException("Пустой файл.");
     }
 
     public Stream Write(ElectricCharger[] chargers)
