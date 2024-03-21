@@ -30,7 +30,7 @@ public class Bot
 
     public Bot()
     {
-        BotClient = new TelegramBotClient("6996316735:AAG-YMGUcJ3rh2CIFZLgLUtMfqZeksDSBOo");
+        BotClient = new TelegramBotClient("");
         _cts = new CancellationTokenSource();
         Chats = new Dictionary<long, UserInfo>();
         Updater = new UpdateHandler();
