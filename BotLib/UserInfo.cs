@@ -3,7 +3,7 @@ namespace BotLib;
 public class UserInfo
 {
     private int _typeOfAction;
-
+    
     public enum UserStates
     {
         None,
@@ -19,7 +19,7 @@ public class UserInfo
         get => _typeOfAction;
         set
         {
-            if (value <= 5 && value >= 0)
+            if (value is <= 5 and >= 0)
             {
                 _typeOfAction = value;
             }
@@ -30,10 +30,13 @@ public class UserInfo
         }
     }
 
-    public UserStates State { get; set; }
-    public Stream File { get; set; }
+    public string? LastQueryId { get; set; }
     
-    public string ValueForSelection { get; set; }
+    public UserStates State { get; set; }
+    public string? File { get; set; }
+    public bool? IsCsv { get; set; }
+    
+    public string? ValueForSelection { get; set; }
     
     public UserInfo()
     {
