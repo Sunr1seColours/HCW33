@@ -2,7 +2,7 @@ using ElectricChargesLib;
 
 namespace FileOpsLib;
 
-public interface IProccessing
+public interface IProcessing
 {
     public ElectricCharger[] Read(Stream stream);
 

@@ -71,10 +71,6 @@ public class Bot
             {
                 Updater.LastUpdateTime = allUpdates[^1].Message.Date;    
             }
-            else
-            {
-                Updater.LastUpdateTime = DateTime.UtcNow;
-            }    
             _off = allUpdates[^1].Id;
         }
         return newUpdates.ToArray();
