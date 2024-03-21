@@ -17,7 +17,8 @@ public class UpdateHandler
     {
         "/start",
         "/help",
-        "/make_action"
+        "/make_action",
+        "/restart"
     };
     
     /// <summary>
@@ -39,7 +40,8 @@ public class UpdateHandler
     /// <param name="cancellationToken"></param>
     private async Task HelpCommandHandlerAsync(ITelegramBotClient botClient, ChatId chatId, CancellationToken cancellationToken)
     {
-        await botClient.SendTextMessageAsync(chatId, "Напиши /make_action для начала работы с ботом",
+        await botClient.SendTextMessageAsync(chatId, "Напиши /make_action для начала работы с ботом\n" +
+                                                     "Используй /restart, если что-то пошло не по плану - перезапуск работы с файлом",
             cancellationToken: cancellationToken);
     }
 
@@ -53,6 +55,14 @@ public class UpdateHandler
         CancellationToken cancellationToken)
     {
         await botClient.SendTextMessageAsync(chatId, "Загрузи файл", cancellationToken: cancellationToken);
+    }
+
+    private async Task RestartCommandHandlerAsync(ITelegramBotClient botClient, ChatId chatId,
+        CancellationToken cancellationToken)
+    {
+        await botClient.SendTextMessageAsync(chatId,
+            "Работа с файлом прекращена, чтобы ее начать снова, используй команду /make_action",
+            cancellationToken: cancellationToken);
     }
     
     private async Task ActionChoiceAnswerAsync(ITelegramBotClient botClient, CallbackQuery callbackQuery, UserInfo user,
@@ -81,20 +91,31 @@ public class UpdateHandler
         UserInfo user, CancellationToken cancellationToken)
     {
         long chatId = callbackQuery.From.Id;
-        await botClient.AnswerCallbackQueryAsync(callbackQuery.Id, $"Выборка будет сделана по парметру {callbackQuery.Data}",
-            showAlert: true, cancellationToken: cancellationToken);
+        await botClient.AnswerCallbackQueryAsync(callbackQuery.Id, $"Выборка будет сделана по парметру {callbackQuery.Data}", 
+            cancellationToken: cancellationToken);
         await botClient.SendTextMessageAsync(chatId,
             $"Введи значение {callbackQuery.Data}, по которому будет сделана выборка");
         user.State = UserInfo.UserStates.EnteringValueForSelection;
     }
+    
+    private async Task SelectSomeAttributeAnswerAsync(ITelegramBotClient botClient, CallbackQuery callbackQuery,
+        UserInfo user, CancellationToken cancellationToken)
+    {
+        long chatId = callbackQuery.From.Id;
+        await botClient.AnswerCallbackQueryAsync(callbackQuery.Id, $"Выборка будет сделана по парметрам {callbackQuery.Data}",
+            cancellationToken: cancellationToken);
+        await botClient.SendTextMessageAsync(chatId,
+            $"Введи значения через *'|'* AdmArea, Latitude, Longitude, по которым будет сделана выборка",
+            parseMode: ParseMode.MarkdownV2);
+        user.State = UserInfo.UserStates.EnteringValueForSelection;
+    }
 
-    private async Task SortingAnswerAsync(ITelegramBotClient botClient, CallbackQuery callbackQuery, UserInfo user,
+    private async Task SortingAnswerAsync(ITelegramBotClient botClient, CallbackQuery callbackQuery,
         CancellationToken cancellationToken)
     {
         await botClient.AnswerCallbackQueryAsync(callbackQuery.Id, 
-            $"Сортировка будет выполнена по {callbackQuery.Data.ToLower()}",
+            $"Сортировка будет выполнена {callbackQuery.Data.ToLower()}",
             showAlert: true, cancellationToken: cancellationToken);
-        user.State = UserInfo.UserStates.None;
     }
     
     private async Task AskSelectionParameterAsync(ITelegramBotClient botClient, ChatId chatId, UserInfo user,
@@ -120,9 +141,9 @@ public class UpdateHandler
                 }
             });
         await botClient.SendTextMessageAsync(chatId, "Выбери поле для выборки:\n" +
-                                                     "1. AdmArea\n" +
-                                                     "2. District\n" +
-                                                     "3. AdmArea + Coordinates", replyMarkup: keyboard,
+                                                     "1. Административный округ\n" +
+                                                     "2. Район\n" +
+                                                     "3. Административный округ и координаты", replyMarkup: keyboard,
             cancellationToken: cancellationToken);
         user.State = UserInfo.UserStates.WaitingForCallback;
     }
@@ -137,7 +158,7 @@ public class UpdateHandler
                 {
                     InlineKeyboardButton.WithCallbackData(
                         "1",
-                        "в алфавитном порядке"
+                        "В алфавитном порядке"
                     ),
                     InlineKeyboardButton.WithCallbackData(
                         "2",
@@ -145,10 +166,10 @@ public class UpdateHandler
                     ),
                 }
             });
-        await botClient.SendTextMessageAsync(chatId, "Выбери поле для сортировки:\n" +
-                                                     "1. AdmArea по алфавиту\n" +
-                                                     "2. AdmArea по алфавиту в обратном порядке\n", replyMarkup: keyboard,
-            cancellationToken: cancellationToken);
+        await botClient.SendTextMessageAsync(chatId, "Выбери параметр сортировки:\n" +
+                                                     "1. Административный округ по алфавиту\n" +
+                                                     "2. Административный округ по алфавиту в обратном порядке\n",
+            replyMarkup: keyboard, cancellationToken: cancellationToken);
         user.State = UserInfo.UserStates.WaitingForCallback;
     }
     
@@ -186,6 +207,10 @@ public class UpdateHandler
                         await MakeActionCommandHandlerAsync(botClient, chatId, cancellationToken);
                         user.State = UserInfo.UserStates.UploadingFile;
                         break;
+                    case "/restart":
+                        await RestartCommandHandlerAsync(botClient, chatId, cancellationToken);
+                        user.State = UserInfo.UserStates.None;
+                        break;
                 }
             }
         }
@@ -199,10 +224,12 @@ public class UpdateHandler
         Regex json = new Regex(".json$");
         if (csv.IsMatch(fileName) || json.IsMatch(fileName))
         {
-            using (Stream file = System.IO.File.Create($"../../../../receivedFiles/{fileName}"))
+            user.IsCsv = csv.IsMatch(fileName);
+            char sep = Path.DirectorySeparatorChar;
+            using (Stream file = System.IO.File.Open($"..{sep}..{sep}..{sep}..{sep}receivedFiles{sep}{fileName}", FileMode.OpenOrCreate))
             {
                 await botClient.GetInfoAndDownloadFileAsync(update.Message.Document.FileId, file, cancellationToken);
-                user.File = file;
+                user.File = $"..{sep}..{sep}..{sep}..{sep}receivedFiles{sep}{fileName}";
             }
             await botClient.SendTextMessageAsync(update.Message.Chat.Id, "Файл получен успешно");
             InlineKeyboardMarkup keyboard = new InlineKeyboardMarkup(
@@ -232,7 +259,8 @@ public class UpdateHandler
             "Расширение файла должно быть csv или json. Попробуй еще раз");
     }
     
-    public async Task CallbackAnswerAsync(ITelegramBotClient botClient, CallbackQuery callbackQuery, UserInfo user, CancellationToken cancellationToken)
+    public async Task CallbackAnswerAsync(ITelegramBotClient botClient, CallbackQuery callbackQuery, UserInfo user,
+        CancellationToken cancellationToken)
     {
         switch (callbackQuery.Data)
         {
@@ -250,16 +278,24 @@ public class UpdateHandler
                 break;
             case "DifficultAdmArea":
                 user.TypeOfAction = 3;
-                await SelectAttributeAnswerAsync(botClient, callbackQuery, user, cancellationToken);
+                await SelectSomeAttributeAnswerAsync(botClient, callbackQuery, user, cancellationToken);
                 break;
             case "В алфавитном порядке":
                 user.TypeOfAction = 4;
-                await SortingAnswerAsync(botClient, callbackQuery, user, cancellationToken);
+                await SortingAnswerAsync(botClient, callbackQuery, cancellationToken);
                 break;
             case "В обратном алфавитном порядке":
                 user.TypeOfAction = 5;
-                await SortingAnswerAsync(botClient, callbackQuery, user, cancellationToken);
+                await SortingAnswerAsync(botClient, callbackQuery, cancellationToken);
                 break;
         }
+    }
+
+    public async Task SendFileAsync(ITelegramBotClient botClient, ChatId chatId, Stream fileToSend,
+        CancellationToken cancellationToken, string? name = null)
+    {
+        InputFile file = new InputFileStream(fileToSend, name);
+        await botClient.SendDocumentAsync(chatId, file, cancellationToken: cancellationToken);
+        fileToSend.Close();
     }
 }
