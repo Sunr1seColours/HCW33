@@ -25,12 +25,12 @@ public class Selector
         }
         else
         {
-            throw new ArgumentException("Wrong parameters for selection.");
+            throw new ArgumentException("Неправильные параметры для выборки.");
         }
 
         if (selected.Count == 0)
         {
-            throw new ArgumentException("There is no data you're looking for.");
+            throw new ArgumentException("Ничего не найдено. Начни заново");
         }
 
         return selected.ToArray();
