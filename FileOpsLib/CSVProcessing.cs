@@ -9,8 +9,14 @@ namespace FileOpsLib;
 /// <summary>
 /// Releases operations on csv files.
 /// </summary>
-public class CsvProcessing : IProcessing
+public class CSVProcessing : IProcessing
 {
+    /// <summary>
+    /// Reads stream of csv file and converts it to array of ElectricCharger objects.
+    /// </summary>
+    /// <param name="stream">Stream which represents csv file.</param>
+    /// <returns>Array of ElectricCharger objects.</returns>
+    /// <exception cref="ArgumentException">File doesn't have any info about electric chargers.</exception>
     public ElectricCharger[] Read(Stream stream)
     {
         CsvConfiguration config = new CsvConfiguration(InvariantCulture)
@@ -44,6 +50,11 @@ public class CsvProcessing : IProcessing
         throw new ArgumentException("Файл пуст.");
     }
 
+    /// <summary>
+    /// Converts array of ElectricCharger objects to stream.
+    /// </summary>
+    /// <param name="chargers">Array of ElectricCharger objects.</param>
+    /// <returns>MemoryStream which represents this collection in csv format.</returns>
     public Stream Write(ElectricCharger[] chargers)
     {
         StringBuilder csv = new StringBuilder();
