@@ -29,7 +29,11 @@ public class UpdateHandler
     /// <param name="cancellationToken"></param>
     private async Task StartCommandHandlerAsync(ITelegramBotClient botClient, ChatId chatId, CancellationToken cancellationToken)
     {
-        await botClient.SendTextMessageAsync(chatId, "hi", cancellationToken: cancellationToken);
+        await botClient.SendStickerAsync(chatId, new InputFileId("CAACAgIAAxkBAAELwgpl_AABdda70h1W5DsYME1JI_gPUToAAgEBAAJWnb0KIr6fDrjC5jQ0BA"),
+            cancellationToken: cancellationToken);
+        await botClient.SendTextMessageAsync(chatId, "Привет\\! Это бот, который поможет работать с *csv* и *json* файлами," +
+                                                     " содержащими информацию о зарядках для электромобилей\\.", 
+            parseMode: ParseMode.MarkdownV2, cancellationToken: cancellationToken);
     }
 
     /// <summary>
@@ -105,7 +109,7 @@ public class UpdateHandler
         await botClient.AnswerCallbackQueryAsync(callbackQuery.Id, $"Выборка будет сделана по парметрам {callbackQuery.Data}",
             cancellationToken: cancellationToken);
         await botClient.SendTextMessageAsync(chatId,
-            $"Введи значения через *'|'* AdmArea, Latitude, Longitude, по которым будет сделана выборка",
+            $"Введи значения через *\\|* AdmArea, Latitude, Longitude, по которым будет сделана выборка",
             parseMode: ParseMode.MarkdownV2);
         user.State = UserInfo.UserStates.EnteringValueForSelection;
     }
@@ -226,7 +230,8 @@ public class UpdateHandler
         {
             user.IsCsv = csv.IsMatch(fileName);
             char sep = Path.DirectorySeparatorChar;
-            using (Stream file = System.IO.File.Open($"..{sep}..{sep}..{sep}..{sep}receivedFiles{sep}{fileName}", FileMode.OpenOrCreate))
+            await using (Stream file = System.IO.File.Open($"..{sep}..{sep}..{sep}..{sep}receivedFiles{sep}{fileName}",
+                             FileMode.OpenOrCreate))
             {
                 await botClient.GetInfoAndDownloadFileAsync(update.Message.Document.FileId, file, cancellationToken);
                 user.File = $"..{sep}..{sep}..{sep}..{sep}receivedFiles{sep}{fileName}";
