@@ -2,12 +2,12 @@ namespace ElectricChargesLib;
 
 public class Selector
 {
-    public ElectricCharger[] Select(ElectricCharger[] chargers, int selectionParameter, string[] valueToSelect)
+    public ElectricCharger[] Select(ElectricCharger[] chargers, int selectionType, string[] valueToSelect)
     {
         List<ElectricCharger> selected = new List<ElectricCharger>();
         if (valueToSelect.Length == 1)
         {
-            switch (selectionParameter)
+            switch (selectionType)
             {
                 case 1:
                     selected = chargers.Where(charger => charger.AdmArea == valueToSelect[0]).ToList();
