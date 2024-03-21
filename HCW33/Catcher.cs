@@ -8,8 +8,18 @@ using File = System.IO.File;
 
 namespace HCW33;
 
+/// <summary>
+/// Static class which releases all program logic and catches exceptions.
+/// </summary>
 public static class Catcher
 {
+    /// <summary>
+    /// Restarts operation process on file.
+    /// </summary>
+    /// <param name="bot">Bot object.</param>
+    /// <param name="update">Update from user.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>True if restart is needed. False in another case.</returns>
     private static async Task<bool> Restart(Bot bot, Update update, CancellationToken cancellationToken)
     {
         MessageEntity[] entities = update.Message.Entities;
@@ -34,9 +44,15 @@ public static class Catcher
         return false;
     }
     
+    /// <summary>
+    /// Makes operations on file.
+    /// </summary>
+    /// <param name="stream">Stream object which represents file.</param>
+    /// <param name="user">Information about user.</param>
+    /// <returns>Array of Stream objects which user will receive.</returns>
     private static Stream[] HandleFile(Stream stream, UserInfo user)
     {
-        IProcessing[] processes = { new CsvProcessing(), new JsonProcessing() };
+        IProcessing[] processes = { new CSVProcessing(), new JSONProcessing() };
         IProcessing process;
         if (user.IsCsv != null && (bool)user.IsCsv)
         {
@@ -98,6 +114,12 @@ public static class Catcher
         return Array.Empty<Update>();
     }
     
+    /// <summary>
+    /// Makes all actions with user.
+    /// </summary>
+    /// <param name="bot">Bot object.</param>
+    /// <param name="update">Information about received update.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     public static async Task MakeAction(Bot bot, Update update, CancellationToken cancellationToken)
     {
         long chatId = update.Message != null ? update.Message.Chat.Id : update.CallbackQuery != null ? update.CallbackQuery.From.Id : -1;

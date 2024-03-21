@@ -1,0 +1,266 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/zemld/RiderProjects/HCW33/HCW33/HCW33/HCW33.csproj": {}
+  },
+  "projects": {
+    "/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/BotLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/BotLib.csproj",
+        "projectName": "BotLib",
+        "projectPath": "/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/BotLib.csproj",
+        "packagesPath": "/Users/zemld/.nuget/packages/",
+        "outputPath": "/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/zemld/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Telegram.Bot": {
+              "target": "Package",
+              "version": "[19.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.416/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/zemld/RiderProjects/HCW33/HCW33/ElectricChargesLib/ElectricChargesLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/zemld/RiderProjects/HCW33/HCW33/ElectricChargesLib/ElectricChargesLib.csproj",
+        "projectName": "ElectricChargesLib",
+        "projectPath": "/Users/zemld/RiderProjects/HCW33/HCW33/ElectricChargesLib/ElectricChargesLib.csproj",
+        "packagesPath": "/Users/zemld/.nuget/packages/",
+        "outputPath": "/Users/zemld/RiderProjects/HCW33/HCW33/ElectricChargesLib/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/zemld/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[31.0.2, )"
+            },
+            "Telegram.Bot": {
+              "target": "Package",
+              "version": "[19.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.416/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/zemld/RiderProjects/HCW33/HCW33/FileOpsLib/FileOpsLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/zemld/RiderProjects/HCW33/HCW33/FileOpsLib/FileOpsLib.csproj",
+        "projectName": "FileOpsLib",
+        "projectPath": "/Users/zemld/RiderProjects/HCW33/HCW33/FileOpsLib/FileOpsLib.csproj",
+        "packagesPath": "/Users/zemld/.nuget/packages/",
+        "outputPath": "/Users/zemld/RiderProjects/HCW33/HCW33/FileOpsLib/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/zemld/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/Users/zemld/RiderProjects/HCW33/HCW33/ElectricChargesLib/ElectricChargesLib.csproj": {
+                "projectPath": "/Users/zemld/RiderProjects/HCW33/HCW33/ElectricChargesLib/ElectricChargesLib.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[31.0.2, )"
+            },
+            "Telegram.Bot": {
+              "target": "Package",
+              "version": "[19.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.416/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/zemld/RiderProjects/HCW33/HCW33/HCW33/HCW33.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/zemld/RiderProjects/HCW33/HCW33/HCW33/HCW33.csproj",
+        "projectName": "HCW33",
+        "projectPath": "/Users/zemld/RiderProjects/HCW33/HCW33/HCW33/HCW33.csproj",
+        "packagesPath": "/Users/zemld/.nuget/packages/",
+        "outputPath": "/Users/zemld/RiderProjects/HCW33/HCW33/HCW33/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/zemld/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/BotLib.csproj": {
+                "projectPath": "/Users/zemld/RiderProjects/HCW33/HCW33/BotLib/BotLib.csproj"
+              },
+              "/Users/zemld/RiderProjects/HCW33/HCW33/ElectricChargesLib/ElectricChargesLib.csproj": {
+                "projectPath": "/Users/zemld/RiderProjects/HCW33/HCW33/ElectricChargesLib/ElectricChargesLib.csproj"
+              },
+              "/Users/zemld/RiderProjects/HCW33/HCW33/FileOpsLib/FileOpsLib.csproj": {
+                "projectPath": "/Users/zemld/RiderProjects/HCW33/HCW33/FileOpsLib/FileOpsLib.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.416/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

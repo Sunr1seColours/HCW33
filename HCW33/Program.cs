@@ -1,9 +1,4 @@
-﻿using BotLib;
-using ElectricChargesLib;
-using FileOpsLib;
-using Telegram.Bot;
-using Telegram.Bot.Types;
-using File = System.IO.File;
+﻿using Telegram.Bot.Types;
 
 namespace HCW33;
 
