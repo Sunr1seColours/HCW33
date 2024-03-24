@@ -1,4 +1,5 @@
 using BotLib;
+using CsvHelper;
 using ElectricChargesLib;
 using FileOpsLib;
 using Telegram.Bot;
@@ -175,6 +176,13 @@ public static class Catcher
                             cancellationToken: cancellationToken);
                         user.State = UserInfo.UserStates.None;
                         user.File = null;
+                        user.TypeOfAction = 0;
+                    }
+                    catch (CsvHelperException e)
+                    {
+                        Console.WriteLine(e);
+                        await bot.BotClient.SendTextMessageAsync(chatId, "Какие-то проблемы в файле.",
+                            cancellationToken: cancellationToken);
                     }
                     catch (Exception e)
                     {
@@ -217,12 +225,19 @@ public static class Catcher
                         await bot.BotClient.SendTextMessageAsync(chatId, $"{e.Message}",
                             cancellationToken: cancellationToken);
                     }
+                    catch (CsvHelperException e)
+                    {
+                        Console.WriteLine(e);
+                        await bot.BotClient.SendTextMessageAsync(chatId, "Какие-то проблемы в файле.",
+                            cancellationToken: cancellationToken);
+                    }
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
                     }
                     user.State = UserInfo.UserStates.None;
                     user.File = null;
+                    user.TypeOfAction = 0;
                 }
                 break;
         }
